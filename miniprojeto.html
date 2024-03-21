@@ -1,0 +1,66 @@
+<html>
+  <head>
+    <title>Catálogo de produtos: Yas brand</title>
+  </head>
+  <body>
+    <script>
+      const catalogo = [];
+      var resp;
+      do {
+        resp = prompt("Bem vindo ao sistema da Yas brand. digite o numero da opçao que deseja executar:\n 1- Cadastrar\n 2- Buscar\n 3- Atualizar\n 4- Listar\n 5- Remover\n 6- Sair");
+        if (resp == 1) {
+          const nome = prompt("Qual o nome do produto que voce deseja cadastrar?");
+          const preco = parseFloat (prompt("Qual o preço desse produto?"));
+          const descricao = prompt("Digite a descrição do produto:");
+          catalogo.push({ nome : nome, preco: preco, descricao: descricao });
+          alert("Produto cadastrado com sucesso!");
+
+        } else if (resp == 2) {
+          const busca = prompt("Qual o nome do produto que deseja buscar?");
+          catalogo.forEach((item) => {
+            if (item.nome.includes(busca)) {
+              alert(`Nome: ${item.nome}/ Preço: ${item.preco}/ Descrição:${item.descricao}`);
+            }
+          });
+        } else if(resp == 3){
+            const nome = prompt("Digite o nome do produto que deseja atualizar:");
+            const produtoEncontrado = catalogo.find(item => item.nome === nome);
+            if (produtoEncontrado) {
+                const novoPreco = parseFloat(prompt("Digite o novo preço do produto:"));
+                const novaDescricao = prompt("Digite a nova descrição do produto:");
+
+                produtoEncontrado.preco = novoPreco;
+                produtoEncontrado.descricao = novaDescricao;
+
+                alert("Informações do produto atualizadas com sucesso!");
+            } else {
+                alert("Produto não encontrado!");
+            }
+        } else if(resp == 4){
+            if (catalogo.length === 0) {
+                alert("O catálogo está vazio!");
+            } else {
+                let listaProdutos = "Produtos Disponíveis:\n";
+                catalogo.forEach(item => {
+                    listaProdutos += `Nome: ${item.nome}, Preço: ${item.preco}, Descrição: ${item.descricao}\n`;
+                });
+                alert(listaProdutos);
+            }
+        
+        } else if(resp==5 ){
+            const nome = prompt("Digite o nome do produto que deseja remover:");
+            const indexProduto = catalogo.findIndex(item => item.nome === nome);
+
+            if (indexProduto !== -1) {
+                catalogo.splice(indexProduto, 1);
+                alert("Produto removido com sucesso!");
+            } else {
+                alert("Produto não encontrado!");
+            }
+        } else if(resp != 6) {
+            alert("Opção inválida! Por favor, escolha uma opção válida.");
+        }
+    }while (resp != 6);
+    </script>
+  </body>
+</html>
